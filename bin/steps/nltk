@@ -29,6 +29,5 @@ if sp-grep -s nltk; then
 
     else
         puts-warn "'nltk.txt' not found, not downloading any corpora"
-        puts-warn "Learn more: https://devcenter.heroku.com/articles/python-nltk"
     fi
 fi

@@ -1,44 +1,36 @@
-# Python: Getting Started
+# buildpack for Python
 
-A barebones Django app, which can easily be deployed to Heroku.
+云帮 Python 语言项目的源码构建核心部分是基于[Heroku buildpack for Python](https://github.com/heroku/heroku-buildpack-python) 来实现的。支持使用`Django`或`Flask`等框架。
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+## 工作原理
 
-## Running Locally
+当buildpack检测到您代码的根目录下存在`requirements.txt`文件，该应用被识别为Python应用。Python由pip与其他依赖驱动。Web应用需要绑定到`$PORT`。
 
-Make sure you have Python [installed properly](http://install.python-guide.org). Also, install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+## 文档
 
-```sh
-$ git clone git@github.com:heroku/python-getting-started.git
-$ cd python-getting-started
+以下文章了解更多：
 
-$ pipenv install
+- [云帮支持Python](https://www.rainbond.com/docs/stable/user-manual/language-support/python.html)
 
-$ createdb python_getting_started
 
-$ python manage.py migrate
-$ python manage.py collectstatic
+## 配置
 
-$ heroku local
+### 推荐使用的Python版本
+
+ 通过`runtime.txt`文件来指定Python版本:
+ 
+- `Python-2.7.15`
+- `Python-3.6.6`
+- `Python-3.7.0`
+
+### 支持自定义Pypi镜像地址(https)
+
+构建应用时配置环境变量
+
+```bash
+BUILD_PIP_INDEX_URL https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## 授权
 
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
+根据 MIT 授权获得许可。 请参阅LICENSE文件

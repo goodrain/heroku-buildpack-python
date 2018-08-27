@@ -65,11 +65,6 @@ if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ] && [ "$DJANGO_INSTALL
         echo "       See traceback above for details."
         echo
         echo "       You may need to update application code to resolve this error."
-        echo "       Or, you can disable collectstatic for this application:"
-        echo
-        echo "          $ heroku config:set DISABLE_COLLECTSTATIC=1"
-        echo
-        echo "       https://devcenter.heroku.com/articles/django-assets"
 
         # Additionally, dump out the environment, if debug mode is on.
         if [ "$DEBUG_COLLECTSTATIC" ]; then
