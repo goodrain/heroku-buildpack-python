@@ -1,63 +1,36 @@
-![python](https://cloud.githubusercontent.com/assets/51578/13712821/b68a42ce-e793-11e5-96b0-d8eb978137ba.png)
+# buildpack for Python
 
-# Heroku Buildpack: Python
+云帮 Python 语言项目的源码构建核心部分是基于[Heroku buildpack for Python](https://github.com/heroku/heroku-buildpack-python) 来实现的。支持使用`Django`或`Flask`等框架。
 
-[![Build Status](https://travis-ci.org/heroku/heroku-buildpack-python.svg?branch=master)](https://travis-ci.org/heroku/heroku-buildpack-python)
+## 工作原理
 
-This is the official [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks) for Python apps, powered by [Pipenv](http://docs.pipenv.org/), [pip](https://pip.pypa.io/) and other excellent software.
+当buildpack检测到您代码的根目录下存在`requirements.txt`文件，该应用被识别为Python应用。Python由pip与其他依赖驱动。Web应用需要绑定到`$PORT`。
 
-Recommended web frameworks include **Django** and **Flask**. The recommended webserver is **Gunicorn**. There are no restrictions around what software can be used (as long as it's pip-installable). Web processes must bind to `$PORT`, and only the HTTP protocol is permitted for incoming connections.
+## 文档
 
-Python packages with C dependencies that are not [available on the stack image](https://devcenter.heroku.com/articles/stack-packages) are generally not supported, unless `manylinux` wheels are provided by the package maintainers (common). For recommended solutions, check out [this article](https://devcenter.heroku.com/articles/python-c-deps) for more information. 
+以下文章了解更多：
 
-See it in Action
-----------------
-
-Deploying a Python application couldn't be easier:
-
-    $ ls
-    Pipfile		Pipfile.lock	Procfile	web.py
-
-    $ heroku create --buildpack heroku/python
-
-    $ git push heroku master
-    …
-    -----> Python app detected
-    -----> Installing python-3.6.6
-    -----> Installing pip
-    -----> Installing requirements with Pipenv 2018.5.18…
-           ...
-           Installing dependencies from Pipfile…
-    -----> Discovering process types
-           Procfile declares types -> (none)
-
-A `Pipfile` or `requirements.txt` must be present at the root of your application's repository.
-
-You can also specify the latest production release of this buildpack for upcoming builds of an existing application:
-
-    $ heroku buildpacks:set heroku/python
+- [云帮支持Python](https://www.rainbond.com/docs/stable/user-manual/language-support/python.html)
 
 
-Specify a Python Runtime
-------------------------
+## 配置
 
-Specific versions of the Python runtime can be specified in your `Pipfile`:
+### 推荐使用的Python版本
 
-    [requires]
-    python_version = "2.7"
+ 通过`runtime.txt`文件来指定Python版本:
+ 
+- `Python-2.7.15`
+- `Python-3.6.6`
+- `Python-3.7.0`
 
-Or, more specifically:
+### 支持自定义Pypi镜像地址(https)
 
-    [requires]
-    python_full_version = "2.7.15"
+构建应用时配置环境变量
 
-Or, with a `runtime.txt` file:
+```bash
+BUILD_PIP_INDEX_URL https://pypi.tuna.tsinghua.edu.cn/simple
+```
 
-    $ cat runtime.txt
-    python-2.7.15
+## 授权
 
-Runtime options include:
-
-- `python-3.7.0`
-- `python-3.6.6`
-- `python-2.7.15`
+根据 MIT 授权获得许可。 请参阅LICENSE文件
